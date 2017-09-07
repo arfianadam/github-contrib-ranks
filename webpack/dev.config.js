@@ -79,9 +79,13 @@ var webpackConfig = module.exports = {
         loader: 'happypack/loader?id=less',
         include: [path.resolve(__dirname, '../src')]
       }, {
+        test: /(global\.s?css)|(dist\/(.+)\.s?css)$/,
+        loader: 'happypack/loader?id=globalsass'
+      }, {
         test: /\.scss$/,
         loader: 'happypack/loader?id=sass',
-        include: [path.resolve(__dirname, '../src')]
+        include: [path.resolve(__dirname, '../src')],
+        exclude: /(global\.s?css)|(dist\/(.+)\.s?css)$/
       }, {
         test: /\.woff2?(\?v=\d+\.\d+\.\d+)?$/,
         loader: 'url-loader',
@@ -151,7 +155,7 @@ var webpackConfig = module.exports = {
       __CLIENT__: true,
       __SERVER__: false,
       __DEVELOPMENT__: true,
-      __DEVTOOLS__: true  // <-------- DISABLE redux-devtools HERE
+      __DEVTOOLS__: false  // <-------- DISABLE redux-devtools HERE
     }),
 
     webpackIsomorphicToolsPlugin.development(),
@@ -203,6 +207,29 @@ var webpackConfig = module.exports = {
           importLoaders: 2,
           sourceMap: true,
           localIdentName: '[local]___[hash:base64:5]'
+        }
+      }, {
+        loader: 'postcss-loader',
+        options: {
+          sourceMap: true
+        }
+      }, {
+        loader: 'sass-loader',
+        options: {
+          outputStyle: 'expanded',
+          sourceMap: true
+        }
+      }
+    ]),
+    helpers.createHappyPlugin('globalsass', [
+      {
+        loader: 'style-loader',
+        options: { sourceMap: true }
+      }, {
+        loader: 'css-loader',
+        options: {
+          importLoaders: 2,
+          sourceMap: true
         }
       }, {
         loader: 'postcss-loader',
