@@ -7,6 +7,7 @@ import notifs from './modules/notifs';
 import counter from './modules/counter';
 import info from './modules/info';
 import contributors from './modules/contributors';
+import repos from './modules/repos';
 // import widgets from './modules/widgets';
 // import survey from './modules/survey';
 // import chat from './modules/chat';
@@ -26,6 +27,7 @@ export default function createReducers(asyncReducers) {
     }),
     info,
     contributors,
+    repos,
     // widgets,
     // survey,
     // chat,
