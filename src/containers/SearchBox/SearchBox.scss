@@ -1,0 +1,15 @@
+@import '~theme/custom.scss';
+
+.SearchBox {
+  text-align: center;
+
+  input {
+    margin: 0 auto;
+    display: block;
+    padding: $space;
+    border-radius: $space/3;
+    border: 1px solid $grey-lighter;
+    width: 100%;
+    max-width: 360px;
+  }
+}

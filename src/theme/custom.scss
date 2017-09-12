@@ -1,0 +1,7 @@
+@import './variables.scss';
+
+$grey: #888;
+$grey-light: lighten($grey, 10%);
+$grey-lighter: lighten($grey-light, 10%);
+
+$space: 15px
