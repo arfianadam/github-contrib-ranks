@@ -14,6 +14,8 @@ module.exports = Object.assign({
   port: process.env.PORT,
   apiHost: process.env.APIHOST || 'localhost',
   apiPort: process.env.APIPORT,
+  client_id: '0ced5b1ad41b1e7102a2',
+  client_secret: '82686937d57fec6c5846bf44fd142601bf700ae9',
   app: {
     title: 'Github Organization Contributors Rank',
     description: 'List contributors in organization repositories.',

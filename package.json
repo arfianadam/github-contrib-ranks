@@ -48,7 +48,8 @@
         "NODE_PATH": "./src",
         "NODE_ENV": "production",
         "PORT": 8080,
-        "APIPORT": 3030
+        "APIHOST": "api.github.com",
+        "APIPORT": 443
       }
     },
     "start-dev": {
@@ -57,7 +58,8 @@
         "NODE_PATH": "./src",
         "NODE_ENV": "development",
         "PORT": 3000,
-        "APIPORT": 3030,
+        "APIHOST": "api.github.com",
+        "APIPORT": 443,
         "WEBPACK_DLLS": 1
       }
     },
