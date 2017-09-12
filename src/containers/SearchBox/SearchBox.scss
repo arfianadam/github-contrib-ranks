@@ -2,14 +2,16 @@
 
 .SearchBox {
   text-align: center;
+  width: 100%;
+  max-width: 360px;
+  margin: 0 auto;
+  padding: $space*2 0;
 
   input {
-    margin: 0 auto;
-    display: block;
-    padding: $space;
-    border-radius: $space/3;
-    border: 1px solid $grey-lighter;
+    margin-bottom: $space;
+  }
+
+  button {
     width: 100%;
-    max-width: 360px;
   }
 }
