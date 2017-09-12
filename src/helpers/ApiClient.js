@@ -6,7 +6,7 @@ const methods = ['get', 'post', 'put', 'patch', 'del'];
 function formatUrl(path) {
   const adjustedPath = path[0] !== '/' ? `/${path}` : path;
   const auth = `client_id=${config.client_id}&client_secret=${config.client_secret}`;
-  const authPath = path.indexOf('?') > -1 ? auth : `?${auth}`;
+  const authPath = path.indexOf('?') > -1 ? `&${auth}` : `?${auth}`;
   // Prepend host and port of the API server to the path.
   return `https://${config.apiHost}${adjustedPath}${authPath}`;
 }
