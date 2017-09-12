@@ -57,9 +57,8 @@
       "env": {
         "NODE_PATH": "./src",
         "NODE_ENV": "development",
-        "PORT": 3000,
-        "APIHOST": "api.github.com",
         "APIPORT": 443,
+        "PORT": 3000,
         "WEBPACK_DLLS": 1
       }
     },

@@ -12,7 +12,7 @@ const environment = {
 module.exports = Object.assign({
   host: process.env.HOST || 'localhost',
   port: process.env.PORT,
-  apiHost: process.env.APIHOST || 'localhost',
+  apiHost: 'api.github.com',
   apiPort: process.env.APIPORT,
   client_id: '0ced5b1ad41b1e7102a2',
   client_secret: '82686937d57fec6c5846bf44fd142601bf700ae9',
