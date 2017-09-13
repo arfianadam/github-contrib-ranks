@@ -48,7 +48,7 @@ export default class SearchBox extends Component {
     const isLoading = requests.filter(req => req.loading).length > 0;
     return (
       <div className={styles.SearchBox}>
-        <div className="form-group">
+        <div className={`${styles.container} form-group`}>
           <form onSubmit={this.submit}>
             <input
               type="text"

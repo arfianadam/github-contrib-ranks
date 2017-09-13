@@ -1,7 +1,47 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import ReactTable from 'react-table';
 import styles from './ContributorsList.scss';
+
+const columns = [
+  {
+    Header: 'ID',
+    accessor: 'id',
+    width: 110,
+    sortable: false
+  },
+  {
+    Header: 'Username',
+    accessor: 'login'
+  },
+  {
+    Header: 'Name',
+    accessor: 'name'
+  },
+  {
+    Header: 'Contributions',
+    accessor: 'total'
+  },
+  {
+    Header: 'Followers',
+    accessor: 'followers'
+  },
+  {
+    Header: 'Public Repo',
+    accessor: 'public_repos'
+  },
+  {
+    Header: 'Public Gist',
+    accessor: 'public_gists'
+  },
+];
+const defaultSorted = [
+  {
+    id: 'total',
+    desc: true
+  }
+];
 
 @connect(state => ({
   contributors: state.contributors,
@@ -23,11 +63,12 @@ export default class ContributorsList extends Component {
     const isLoading = requests.filter(req => req.loading).length > 0;
     return (
       <div className={styles.ContributorsList}>
-        {!isLoading &&
-          <ul>
-            {contributors.map(user => <li key={user.id}>{user.login} - {user.name}</li>)}
-          </ul>
-        }
+        <ReactTable
+          loading={isLoading}
+          data={contributors}
+          columns={columns}
+          defaultSorted={defaultSorted}
+          filterable />
       </div>
     );
   }

@@ -2,12 +2,14 @@
 
 .SearchBox {
   text-align: center;
-  width: 100%;
-  max-width: 360px;
-  margin: 0 auto;
   padding: $space*2 0;
 
-  input {
+  .container {
+    max-width: 360px;
+    margin: 0 auto;
+  }
+
+  input, button {
     margin-bottom: $space;
   }
 

@@ -52,6 +52,7 @@ var webpackConfig = module.exports = {
       'react-hot-loader/patch',
       'bootstrap-loader',
       'font-awesome-webpack!./src/theme/font-awesome.config.js',
+      'react-table/react-table.css',
       './src/client.js'
     ]
   },
@@ -79,7 +80,7 @@ var webpackConfig = module.exports = {
         loader: 'happypack/loader?id=less',
         include: [path.resolve(__dirname, '../src')]
       }, {
-        test: /(global\.s?css)|(dist\/(.+)\.s?css)$/,
+        test: /(global\.s?css)|(dist\/(.+)\.s?css)|(node_modules\/(.+)\.s?css)$/,
         loader: 'happypack/loader?id=globalsass'
       }, {
         test: /\.scss$/,
