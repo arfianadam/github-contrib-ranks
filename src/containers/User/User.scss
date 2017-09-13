@@ -1,0 +1,66 @@
+@import '~theme/custom.scss';
+
+.User {
+  padding: $space*4 0;
+  article {
+    header {
+      text-align: center;
+
+      .avatar {
+        img {
+          max-width: 240px;
+          border-radius: 50%;
+        }
+      }
+
+      h3 {
+        color: $grey-lighter;
+        margin-top: 0;
+      }
+
+      ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        margin-bottom: $space;
+
+        li {
+          display: inline-block;
+          padding: 0 $space;
+          border-right: 1px solid $grey-lighter;
+
+          .label {
+            color: $grey-light;
+            text-transform: uppercase;
+          }
+
+          .number {
+            font-weight: bold;
+          }
+
+          i {
+            color: $grey-light;
+          }
+
+          &:last-child {
+            border-right: none;
+          }
+        }
+
+        &.stats {
+          li {
+            border-right: none;
+            border: 1px solid $grey-lighter;
+            border-radius: $space/3;
+            padding: $space/2;
+            margin-right: $space;
+
+            &:last-child {
+              margin-right: none;
+            }
+          }
+        }
+      }
+    }
+  }
+}

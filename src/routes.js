@@ -1,6 +1,6 @@
 import React from 'react';
 import { IndexRoute, Route } from 'react-router';
-import { App, NotFound } from 'containers';
+import { App } from 'containers';
 
 // eslint-disable-next-line import/no-dynamic-require
 if (typeof System.import === 'undefined') System.import = module => Promise.resolve(require(module));
@@ -11,6 +11,6 @@ export default () => (
     <IndexRoute getComponent={() => System.import('./containers/Home/Home')} />
 
     {/* Catch all route */}
-    <Route path="*" component={NotFound} status={404} />
+    <Route path=":username" getComponent={() => System.import('./containers/User/User')} />
   </Route>
 );
