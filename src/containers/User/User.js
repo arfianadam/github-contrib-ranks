@@ -26,6 +26,12 @@ export default class User extends Component {
     dispatch(push('/'));
   }
 
+  goToRepo = path => e => {
+    e.preventDefault();
+    const { dispatch } = this.props;
+    dispatch(push(path));
+  }
+
   renderUser = user => (
     <div>
       <article>
@@ -72,6 +78,28 @@ export default class User extends Component {
             </ul>
           </div>
         </header>
+        <hr />
+        <main className={styles.main}>
+          <h3>Contributions</h3>
+          <h4>Total: <strong>{user.total}</strong></h4>
+          <ul>
+            {user.repo.map(repo => (
+              <li key={repo.name}>
+                <div>
+                  <a
+                    href={`/repos/${repo.name}`}
+                    onClick={this.goToRepo(`/repos/${repo.name}`)}>
+                    {repo.name}
+                  </a>
+                </div>
+                <hr />
+                <div className={styles.contributions}>
+                  <strong>{repo.contributions}</strong> <span>contributions</span>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </main>
       </article>
     </div>
   )

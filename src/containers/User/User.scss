@@ -1,10 +1,11 @@
 @import '~theme/custom.scss';
 
 .User {
-  padding: $space*4 0;
+  padding: $space*4 $space;
   article {
     header {
       text-align: center;
+      margin-bottom: $space*2;
 
       .avatar {
         img {
@@ -54,9 +55,36 @@
             border-radius: $space/3;
             padding: $space/2;
             margin-right: $space;
+            margin-bottom: $space;
 
             &:last-child {
               margin-right: none;
+            }
+          }
+        }
+      }
+    }
+
+    .main {
+      ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        margin-top: $space*2;
+        margin-bottom: $space;
+
+        li {
+          display: inline-block;
+          min-width: 200px;
+          padding: $space;
+          border-radius: $space/3;
+          border: 1px solid $grey-lighter;
+          margin-right: $space;
+          margin-bottom: $space;
+
+          .contributions {
+            span {
+              color: $grey-light;
             }
           }
         }

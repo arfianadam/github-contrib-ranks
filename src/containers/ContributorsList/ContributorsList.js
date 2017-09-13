@@ -63,7 +63,7 @@ export default class ContributorsList extends Component {
   handleRow = (state, rowInfo) => {
     const { dispatch } = this.props;
     return {
-      onClick: () => dispatch(push(`/${rowInfo.row.login}`))
+      onClick: () => dispatch(push(`/users/${rowInfo.row.login}`))
     };
   }
 
