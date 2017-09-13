@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { getRepos } from 'redux/modules/repos';
+import { clearRequests } from 'redux/modules/requests';
 import styles from './SearchBox.scss';
 
 @connect(state => ({
@@ -17,7 +18,8 @@ export default class SearchBox extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: ''
+      value: '',
+      longRequest: false
     };
   }
 
@@ -31,12 +33,18 @@ export default class SearchBox extends Component {
     e.preventDefault();
     const { dispatch } = this.props;
     const { value } = this.state;
+    dispatch(clearRequests());
     dispatch(getRepos(value));
+    setTimeout(() => {
+      this.setState({
+        longRequest: true
+      });
+    }, 3000);
   }
 
   render() {
     const { requests } = this.props;
-    const { value } = this.state;
+    const { value, longRequest } = this.state;
     const isLoading = requests.filter(req => req.loading).length > 0;
     return (
       <div className={styles.SearchBox}>
@@ -56,7 +64,10 @@ export default class SearchBox extends Component {
           </form>
         </div>
         {isLoading &&
-          <span><i className="fa fa-spinner fa-pulse" aria-hidden="true" />&nbsp;This might take a while..</span>
+          <span><i className="fa fa-spinner fa-pulse" aria-hidden="true" />&nbsp;This might take a while.. ({`${requests.length}`}) requests</span> // eslint-disable-line
+        }
+        {isLoading && longRequest &&
+          <p>This is taking so long. You are requesting many repos and their many contributors and their own profile. Relax.</p> // eslint-disable-line
         }
       </div>
     );

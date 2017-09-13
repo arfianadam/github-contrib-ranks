@@ -2,6 +2,7 @@ import { splice } from 'helpers/polyfill';
 
 const START_REQUEST = 'redux-example/contributors/START_REQUEST';
 const FINISH_REQUEST = 'redux-example/contributors/FINISH_REQUEST';
+const CLEAR_REQUEST = 'redux-example/contributors/CLEAR_REQUEST';
 
 const initialState = [];
 
@@ -22,6 +23,8 @@ export default function reducer(state = initialState, action = {}) {
         loading: false
       };
       return splice(state, requestIndex, 1, finishedRequest);
+    case CLEAR_REQUEST:
+      return [];
     default:
       return state;
   }
@@ -38,5 +41,11 @@ export function finishRequest(id) {
   return {
     type: FINISH_REQUEST,
     payload: id
+  };
+}
+
+export function clearRequests() {
+  return {
+    type: CLEAR_REQUEST
   };
 }

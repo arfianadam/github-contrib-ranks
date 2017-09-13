@@ -1,4 +1,5 @@
 import ApiClient from 'helpers/ApiClient';
+// import { splice } from 'helpers/polyfill';
 import { startRequest, finishRequest } from './requests';
 const request = new ApiClient();
 
@@ -6,33 +7,36 @@ const SAVE_CONTRIBUTORS = 'redux-example/contributors/SAVE_CONTRIBUTORS';
 const GET_CONTRIB_SUCCESS = 'redux-example/contributors/GET_CONTRIB_SUCCESS';
 const GET_CONTRIB_FAIL = 'redux-example/contributors/GET_CONTRIB_FAIL';
 
-const initialState = {};
+const initialState = [];
 
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     case SAVE_CONTRIBUTORS:
-      const newState = { ...state };
-      let org = newState[action.payload.org];
-      if (org) {
-        let repo = org[action.payload.repo];
-        if (repo) {
-          repo = [...repo, ...action.payload.contributors];
+      const newState = [...state];
+      const contributors = action.payload.contributors;
+      contributors.forEach(user => {
+        const userIndex = newState.findIndex(loadedUser => loadedUser.id === user.id);
+        const isLoaded = userIndex > -1;
+        if (!isLoaded) {
+          const newUser = {
+            ...user,
+            total: user.contributions,
+            repo: [{
+              name: action.payload.repo,
+              contributions: user.contributions
+            }]
+          };
+          newState.push(newUser);
         } else {
-          repo = action.payload.contributors;
+          const loadedUser = newState[userIndex];
+          const repo = {
+            name: action.payload.repo,
+            contributions: user.contributions
+          };
+          loadedUser.repo.push(repo);
+          loadedUser.total += user.contributions;
         }
-        org[action.payload.repo] = repo;
-      } else {
-        org = {};
-        org[action.payload.repo] = action.payload.contributors;
-      }
-      newState[action.payload.org] = org;
-      // let repoContributors = newState[action.payload.org];
-      // if (repoContributors) {
-      //   repoContributors = [...repoContributors, ...action.payload.contributors];
-      // } else {
-      //   repoContributors = action.payload.contributors;
-      // }
-      // newState[action.payload.org] = repoContributors;
+      });
       return newState;
     case GET_CONTRIB_SUCCESS:
       return { ...state, action };
@@ -52,16 +56,44 @@ export function saveContributors(org, repo, contributors) {
   };
 }
 
+export function getInfo(user) {
+  return (dispatch, getState) => new Promise(resolve => {
+    const contributors = getState().contributors;
+    const userIndex = contributors.findIndex(loadedUser => loadedUser.id === user.id);
+    const isLoaded = userIndex > -1;
+    if (!isLoaded) {
+      const id = Math.random() * (new Date().valueOf());
+      dispatch(startRequest(id));
+      request
+        .get(`users/${user.login}`)
+        .then(res => {
+          dispatch(finishRequest(id));
+          resolve({
+            ...user,
+            ...res
+          });
+        });
+    }
+  });
+}
+
 export function getContributors(org, repo, page = 1) {
   return dispatch => {
     const id = Math.random() * (new Date().valueOf());
+    const promises = [];
     dispatch(startRequest(id));
     request
       .get(`/repos/${org}/${repo}/contributors?page=${page}`)
       .then(res => {
         page++;
         dispatch(finishRequest(id));
-        dispatch(saveContributors(org, repo, res));
+        res.forEach(user => {
+          promises.push(dispatch(getInfo(user)));
+        });
+        Promise.all(promises)
+          .then(contributors => {
+            dispatch(saveContributors(org, repo, contributors));
+          });
         if (page < 3) {
           dispatch(getContributors(org, repo, page));
         }
