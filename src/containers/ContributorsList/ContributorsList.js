@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import ReactTable from 'react-table';
+import { push } from 'react-router-redux';
 import styles from './ContributorsList.scss';
 
 const columns = [
@@ -49,6 +50,7 @@ const defaultSorted = [
 }))
 export default class ContributorsList extends Component {
   static propTypes = {
+    dispatch: PropTypes.func.isRequired,
     contributors: PropTypes.array.isRequired,
     requests: PropTypes.array.isRequired
   }
@@ -56,6 +58,13 @@ export default class ContributorsList extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+  }
+
+  handleRow = (state, rowInfo) => {
+    const { dispatch } = this.props;
+    return {
+      onClick: () => dispatch(push(`/${rowInfo.row.login}`))
+    };
   }
 
   render() {
@@ -68,6 +77,7 @@ export default class ContributorsList extends Component {
           data={contributors}
           columns={columns}
           defaultSorted={defaultSorted}
+          getTdProps={this.handleRow}
           filterable />
       </div>
     );

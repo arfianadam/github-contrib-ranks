@@ -53,6 +53,7 @@ var webpackConfig = module.exports = {
       'bootstrap-loader',
       'font-awesome-webpack!./src/theme/font-awesome.config.js',
       'react-table/react-table.css',
+      'theme/global.scss',
       './src/client.js'
     ]
   },

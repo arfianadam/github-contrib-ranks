@@ -1,0 +1,10 @@
+@import './custom.scss';
+
+.rt-tbody {
+  .rt-tr {
+    cursor: pointer;
+    &:hover {
+      background: $grey-lightest;
+    }
+  }
+}
