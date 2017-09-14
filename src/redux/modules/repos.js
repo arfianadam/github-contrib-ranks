@@ -5,31 +5,21 @@ const request = new ApiClient();
 
 const SAVE_REPOS = 'redux-example/contributors/SAVE_REPOS';
 
-const initialState = {};
+const initialState = [];
 
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     case SAVE_REPOS:
-      const newState = { ...state };
-      let repos = newState[action.payload.org];
-      if (repos) {
-        repos = [...repos, ...action.payload.repos];
-      } else {
-        repos = action.payload.repos;
-      }
-      newState[action.payload.org] = repos;
-      return newState;
+      return [...state, ...action.payload.repos];
     default:
       return state;
   }
 }
 
-export function saveRepos(org, repos) {
+export function saveRepos(repos) {
   return {
     type: SAVE_REPOS,
-    payload: {
-      org, repos
-    }
+    payload: { repos }
   };
 }
 
@@ -42,7 +32,7 @@ export function getRepos(org, page = 1) {
       .then(res => {
         page++;
         dispatch(finishRequest(id));
-        dispatch(saveRepos(org, res));
+        dispatch(saveRepos(res));
         if (page < 3) {
           dispatch(getRepos(org, page));
         }

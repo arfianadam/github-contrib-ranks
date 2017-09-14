@@ -10,6 +10,7 @@ export default () => (
     {/* Home (main) route */}
     <IndexRoute getComponent={() => System.import('./containers/Home/Home')} />
     <Route path="users/:username" getComponent={() => System.import('./containers/User/User')} />
+    <Route path="repos/:slug" getComponent={() => System.import('./containers/Repo/Repo')} />
 
     {/* Catch all route */}
     <Route path="*" component={NotFound} />

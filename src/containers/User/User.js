@@ -109,9 +109,6 @@ export default class User extends Component {
     const userIndex = contributors.findIndex(contributor => contributor.login === params.username);
     const user = contributors[userIndex];
     const isLoaded = userIndex > -1;
-    if (isLoaded) {
-      console.log(user);
-    }
     return (
       <div className={`${styles.User} container`}>
         <Helmet title={`${params.username}`} />

@@ -5,4 +5,11 @@ $grey-light: lighten($grey, 10%);
 $grey-lighter: lighten($grey-light, 10%);
 $grey-lightest: lighten($grey-lighter, 20%);
 
-$space: 15px
+$space: 15px;
+
+@mixin transition($transition...) {
+  -moz-transition:    $transition;
+  -o-transition:      $transition;
+  -webkit-transition: $transition;
+  transition:         $transition;
+}
