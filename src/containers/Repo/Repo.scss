@@ -1,6 +1,7 @@
 @import '~theme/custom.scss';
 
 .Repo {
+  margin-bottom: $space*4;
   header {
     padding: $space*4 $space;
     background-color: $grey-lightest;

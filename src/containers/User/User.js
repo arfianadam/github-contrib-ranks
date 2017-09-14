@@ -3,6 +3,8 @@ import Helmet from 'react-helmet';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
+
+import Header from 'components/Header';
 import styles from './User.scss';
 
 @connect(state => ({
@@ -34,7 +36,8 @@ export default class User extends Component {
 
   renderUser = user => (
     <div>
-      <article>
+      <Header />
+      <article className="container">
         <header>
           <div className={styles.avatar}>
             <img src={user.avatar_url} alt={user.login} />
@@ -110,10 +113,15 @@ export default class User extends Component {
     const user = contributors[userIndex];
     const isLoaded = userIndex > -1;
     return (
-      <div className={`${styles.User} container`}>
+      <div className={styles.User}>
         <Helmet title={`${params.username}`} />
         {!isLoaded &&
-          <h3>User <strong>{params.username}</strong> is not loaded yet. Please load an organization first <a onClick={this.goHome} href="">here</a></h3> // eslint-disable-line
+          <div className="container">
+            <h3>
+              User <strong>{params.username}</strong> is not loaded yet.
+              Please load an organization first <a onClick={this.goHome} href="">here</a>
+            </h3>
+          </div>
         }
         {isLoaded &&
           this.renderUser(user)

@@ -1,8 +1,9 @@
 @import '~theme/custom.scss';
 
 .User {
-  padding: $space*4 $space;
+  margin-bottom: $space*4;
   article {
+    padding: 0 $space;
     header {
       text-align: center;
       margin-bottom: $space*2;

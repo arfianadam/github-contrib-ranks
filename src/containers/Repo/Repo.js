@@ -3,6 +3,8 @@ import Helmet from 'react-helmet';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
+
+import Header from 'components/Header';
 import styles from './Repo.scss';
 
 @connect(state => ({
@@ -32,8 +34,15 @@ export default class Repo extends Component {
     dispatch(push(`/users/${slug}`));
   }
 
+  goHome = e => {
+    e.preventDefault();
+    const { dispatch } = this.props;
+    dispatch(push('/'));
+  }
+
   renderRepo = (repo, contributors) => (
     <article>
+      <Header />
       <header>
         <div className="container">
           <div className={styles.info}>
@@ -86,9 +95,18 @@ export default class Repo extends Component {
     const isLoaded = repoIndex > -1;
     const repo = repos[repoIndex];
     const filteredContributors = contributors.filter(this.filterUserRepo(params.slug));
+    console.log(contributors[contributors.findIndex(a => a.login === 'abrons')]);
     return (
       <div className={styles.Repo}>
         <Helmet title={`${params.slug}`} />
+        {!isLoaded &&
+          <div className="container">
+            <h3>
+              Repo <strong>{params.slug}</strong> is not loaded yet.
+              Please load an organization first <a onClick={this.goHome} href="">here</a>
+            </h3>
+          </div>
+        }
         {isLoaded &&
           this.renderRepo(repo, filteredContributors)
         }
