@@ -70,7 +70,7 @@ export default class SearchBox extends Component {
           <span><i className="fa fa-spinner fa-pulse" aria-hidden="true" />&nbsp;This might take a while.. ({`${requests.length}`}) requests</span> // eslint-disable-line
         }
         {isLoading && longRequest &&
-          <p>This is taking so long. You are requesting many repos and their many contributors and their own profile. Relax.</p> // eslint-disable-line
+          <p>You are requesting many nested data. Please wait..</p> // eslint-disable-line
         }
       </div>
     );
