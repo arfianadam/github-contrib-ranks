@@ -95,7 +95,6 @@ export default class Repo extends Component {
     const isLoaded = repoIndex > -1;
     const repo = repos[repoIndex];
     const filteredContributors = contributors.filter(this.filterUserRepo(params.slug));
-    console.log(contributors[contributors.findIndex(a => a.login === 'abrons')]);
     return (
       <div className={styles.Repo}>
         <Helmet title={`${params.slug}`} />

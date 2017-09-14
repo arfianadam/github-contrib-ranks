@@ -4,37 +4,37 @@ import { connect } from 'react-redux';
 
 import { getRepos } from 'redux/modules/repos';
 import { clearRequests } from 'redux/modules/requests';
+import { setOrgName } from 'redux/modules/globalvar';
 import styles from './SearchBox.scss';
 
 @connect(state => ({
-  requests: state.requests
+  requests: state.requests,
+  orgName: state.globalvar.orgName
 }))
 export default class SearchBox extends Component {
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
-    requests: PropTypes.array.isRequired
+    requests: PropTypes.array.isRequired,
+    orgName: PropTypes.string.isRequired
   }
 
   constructor(props) {
     super(props);
     this.state = {
-      value: '',
       longRequest: false
     };
   }
 
   handleChange = e => {
-    this.setState({
-      value: e.target.value
-    });
+    const { dispatch } = this.props;
+    dispatch(setOrgName(e.target.value));
   }
 
   submit = e => {
     e.preventDefault();
-    const { dispatch } = this.props;
-    const { value } = this.state;
+    const { dispatch, orgName } = this.props;
     dispatch(clearRequests());
-    dispatch(getRepos(value));
+    dispatch(getRepos(orgName));
     setTimeout(() => {
       this.setState({
         longRequest: true
@@ -43,8 +43,8 @@ export default class SearchBox extends Component {
   }
 
   render() {
-    const { requests } = this.props;
-    const { value, longRequest } = this.state;
+    const { requests, orgName } = this.props;
+    const { longRequest } = this.state;
     const isLoading = requests.filter(req => req.loading).length > 0;
     return (
       <div className={styles.SearchBox}>
@@ -54,7 +54,7 @@ export default class SearchBox extends Component {
               type="text"
               className="form-control"
               placeholder="Insert organization slug.."
-              value={value}
+              value={orgName}
               disabled={isLoading}
               onChange={this.handleChange} />
             <button
