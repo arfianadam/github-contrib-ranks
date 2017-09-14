@@ -4,6 +4,7 @@ import { startRequest, finishRequest } from './requests';
 const request = new ApiClient();
 
 const SAVE_REPOS = 'redux-example/contributors/SAVE_REPOS';
+const CLEAR_REPOS = 'redux-example/contributors/CLEAR_REPOS';
 
 const initialState = [];
 
@@ -11,6 +12,8 @@ export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     case SAVE_REPOS:
       return [...state, ...action.payload.repos];
+    case CLEAR_REPOS:
+      return [];
     default:
       return state;
   }
@@ -40,5 +43,11 @@ export function getRepos(org, page = 1) {
           dispatch(getContributors(org, repo.name));
         });
       });
+  };
+}
+
+export function clearRepos() {
+  return {
+    type: CLEAR_REPOS
   };
 }

@@ -4,8 +4,7 @@ import { startRequest, finishRequest } from './requests';
 const request = new ApiClient();
 
 const SAVE_CONTRIBUTORS = 'redux-example/contributors/SAVE_CONTRIBUTORS';
-const GET_CONTRIB_SUCCESS = 'redux-example/contributors/GET_CONTRIB_SUCCESS';
-const GET_CONTRIB_FAIL = 'redux-example/contributors/GET_CONTRIB_FAIL';
+const CLEAR_CONTRIBUTORS = 'redux-example/contributors/CLEAR_CONTRIBUTORS';
 
 const initialState = [];
 
@@ -38,10 +37,8 @@ export default function reducer(state = initialState, action = {}) {
         }
       });
       return newState;
-    case GET_CONTRIB_SUCCESS:
-      return { ...state, action };
-    case GET_CONTRIB_FAIL:
-      return { ...state, action };
+    case CLEAR_CONTRIBUTORS:
+      return [];
     default:
       return state;
   }
@@ -100,5 +97,11 @@ export function getContributors(org, repo, page = 1) {
           dispatch(getContributors(org, repo, page));
         }
       });
+  };
+}
+
+export function clearContributors() {
+  return {
+    type: CLEAR_CONTRIBUTORS
   };
 }

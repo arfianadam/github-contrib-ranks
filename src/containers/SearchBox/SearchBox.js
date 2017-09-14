@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { getRepos } from 'redux/modules/repos';
+import { getRepos, clearRepos } from 'redux/modules/repos';
 import { clearRequests } from 'redux/modules/requests';
+import { clearContributors } from 'redux/modules/contributors';
 import { setOrgName } from 'redux/modules/globalvar';
 import styles from './SearchBox.scss';
 
@@ -34,6 +35,8 @@ export default class SearchBox extends Component {
     e.preventDefault();
     const { dispatch, orgName } = this.props;
     dispatch(clearRequests());
+    dispatch(clearRepos());
+    dispatch(clearContributors());
     dispatch(getRepos(orgName));
     setTimeout(() => {
       this.setState({
