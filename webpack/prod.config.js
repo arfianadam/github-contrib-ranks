@@ -24,6 +24,8 @@ module.exports = {
     main: [
       'bootstrap-loader',
       'font-awesome-webpack!./src/theme/font-awesome.config.prod.js',
+      'react-table/react-table.css',
+      'theme/global.scss',
       './src/client.js'
     ]
   },
@@ -70,7 +72,7 @@ module.exports = {
           ]
         })
       }, {
-        test: /\.scss$/,
+        test: /(global\.s?css)|(dist\/(.+)\.s?css)|(node_modules\/(.+)\.s?css)$/,
         loader: ExtractTextPlugin.extract({
           fallback: 'style-loader',
           use: [
@@ -96,6 +98,34 @@ module.exports = {
             }
           ]
         })
+      }, {
+        test: /\.scss$/,
+        loader: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            {
+              loader: 'css-loader',
+              options: {
+                modules: true,
+                importLoaders: 2,
+                sourceMap: true
+              }
+            }, {
+              loader: 'postcss-loader',
+              options: {
+                sourceMap: true
+              }
+            }, {
+              loader: 'sass-loader',
+              options: {
+                outputStyle: 'expanded',
+                sourceMap: true,
+                sourceMapContents: true
+              }
+            }
+          ]
+        }),
+        exclude: /(global\.s?css)|(dist\/(.+)\.s?css)$/
       }, {
         test: /\.woff2?(\?v=\d+\.\d+\.\d+)?$/,
         loader: 'url-loader',
