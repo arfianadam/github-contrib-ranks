@@ -62,7 +62,6 @@
         border-right: none;
         border: 1px solid $grey-lighter;
         border-radius: $space/3;
-        padding: $space/2;
         margin-right: $space;
         margin-bottom: $space;
         cursor: pointer;
@@ -72,6 +71,11 @@
         &:hover {
           border: 1px solid $grey;
           color: $text-color;
+        }
+
+        a {
+          padding: $space/2;
+          display: inline-block;
         }
 
         .avatar {
