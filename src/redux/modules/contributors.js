@@ -73,6 +73,8 @@ export function getInfo(user) {
             ...res
           });
         });
+    } else {
+      resolve(user);
     }
   });
 }
