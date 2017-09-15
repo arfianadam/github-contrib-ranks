@@ -1,6 +1,9 @@
 # Github Contributors Rank by Organization
+Live at http://github-rank.arfianadam.com/
+<hr />
 
 It lets you get an organization's contributors ranked by their contributions on the organization's repositories. Simply type in the organization slug and click Go!
+<hr />
 
 ### Limitations
 - Because of Github's API Policy, you cannot request more than 5000 requests per hour.
