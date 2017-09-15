@@ -26,19 +26,20 @@ export function saveRepos(repos) {
   };
 }
 
-export function getRepos(org, page = 1) {
+export function getRepos(org, page = 1, perPage = 100) {
   return dispatch => {
     const id = Math.random() * (new Date().valueOf());
     dispatch(startRequest(id));
     request
-      .get(`/orgs/${org}/repos?page=${page}`)
+      .get(`/orgs/${org}/repos?page=${page}&per_page=${perPage}`)
       .then(res => {
-        page++;
+        // page++;
         dispatch(finishRequest(id));
         dispatch(saveRepos(res));
-        if (page < 3) {
-          dispatch(getRepos(org, page));
-        }
+        // if you want to load more than one page
+        // if (page < 3) {
+        //   dispatch(getRepos(org, page));
+        // }
         res.forEach(repo => {
           dispatch(getContributors(org, repo.name));
         });
