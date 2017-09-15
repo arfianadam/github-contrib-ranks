@@ -78,6 +78,10 @@
           display: inline-block;
         }
 
+        hr {
+          margin: $space/2 0;
+        }
+
         .avatar {
           display: inline-block;
           margin-right: $space/2;

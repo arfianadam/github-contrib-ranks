@@ -72,17 +72,26 @@ export default class Repo extends Component {
         <h3>Contributors</h3>
         <div className="contributors">
           <ul>
-            {contributors.map(user => (
-              <li key={user.id}>
-                <a
-                  href={`/users/${user.login}`}
-                  onClick={this.goToUser(user.login)}
-                >
-                  <div className={styles.avatar}><img src={user.avatar_url} alt={user.login} /></div>
-                  <div className={styles.username}>{user.login}</div>
-                </a>
-              </li>
-            ))}
+            {contributors.map(user => {
+              const contributions = user.repo[user.repo.findIndex(r => repo.name === r.name)].contributions;
+              return (
+                <li key={user.id}>
+                  <a
+                    href={`/users/${user.login}`}
+                    onClick={this.goToUser(user.login)}
+                  >
+                    <div className={styles.avatar}><img src={user.avatar_url} alt={user.login} /></div>
+                    <div className={styles.username}>{user.login}</div>
+                    <hr />
+                    <span>
+                      <strong>
+                        {contributions}
+                      </strong> contribution{contributions > 1 ? 's' : ''}
+                    </span>
+                  </a>
+                </li>
+              );
+            })}
           </ul>
         </div>
       </main>
