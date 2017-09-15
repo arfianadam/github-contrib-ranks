@@ -25,6 +25,7 @@ module.exports = {
       'bootstrap-loader',
       'font-awesome-webpack!./src/theme/font-awesome.config.prod.js',
       'react-table/react-table.css',
+      'react-select/dist/react-select.css',
       'theme/global.scss',
       './src/client.js'
     ]
