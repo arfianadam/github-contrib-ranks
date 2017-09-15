@@ -1,0 +1,15 @@
+@import '~theme/custom.scss';
+
+.RepoDropdown {
+  display: flex;
+  align-items: center;
+  margin-bottom: $space;
+
+  span {
+    margin-right: $space;
+  }
+
+  .dropdown {
+    flex-grow: 1;
+  }
+}

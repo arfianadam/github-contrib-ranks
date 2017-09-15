@@ -48,14 +48,13 @@ const defaultSorted = [
 
 @connect(state => ({
   contributors: state.contributors,
-  requests: state.requests,
   page: state.globalvar.page
 }))
 export default class ContributorsList extends Component {
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
     contributors: PropTypes.array.isRequired,
-    requests: PropTypes.array.isRequired,
+    isLoading: PropTypes.bool.isRequired,
     page: PropTypes.number.isRequired
   }
 
@@ -80,8 +79,7 @@ export default class ContributorsList extends Component {
   }
 
   render() {
-    const { contributors, requests, page } = this.props;
-    const isLoading = requests.filter(req => req.loading).length > 0;
+    const { contributors, isLoading, page } = this.props;
     return (
       <div className={styles.ContributorsList}>
         <ReactTable

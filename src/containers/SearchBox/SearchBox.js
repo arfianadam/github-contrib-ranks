@@ -9,12 +9,13 @@ import { setOrgName } from 'redux/modules/globalvar';
 import styles from './SearchBox.scss';
 
 @connect(state => ({
-  requests: state.requests,
-  orgName: state.globalvar.orgName
+  orgName: state.globalvar.orgName,
+  requests: state.requests
 }))
 export default class SearchBox extends Component {
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
+    isLoading: PropTypes.bool.isRequired,
     requests: PropTypes.array.isRequired,
     orgName: PropTypes.string.isRequired
   }
@@ -46,9 +47,8 @@ export default class SearchBox extends Component {
   }
 
   render() {
-    const { requests, orgName } = this.props;
+    const { isLoading, orgName, requests } = this.props;
     const { longRequest } = this.state;
-    const isLoading = requests.filter(req => req.loading).length > 0;
     return (
       <div className={styles.SearchBox}>
         <div className={`${styles.container} form-group`}>
