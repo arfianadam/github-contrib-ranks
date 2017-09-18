@@ -86,13 +86,15 @@ export function getContributors(org, repo, page = 1, perPage = 100) {
       .then(res => {
         // page++;
         dispatch(finishRequest(id));
-        res.forEach(user => {
-          promises.push(dispatch(getInfo(user)));
-        });
-        Promise.all(promises)
-          .then(contributors => {
-            dispatch(saveContributors(org, repo, contributors));
+        if (res !== null) {
+          res.forEach(user => {
+            promises.push(dispatch(getInfo(user)));
           });
+          Promise.all(promises)
+            .then(contributors => {
+              dispatch(saveContributors(org, repo, contributors));
+            });
+        }
         // if you want to load more than one page
         // if (page < 3) {
         //   dispatch(getContributors(org, repo, page));
