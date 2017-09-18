@@ -1,5 +1,5 @@
 # Github Contributors Rank by Organization
-Live at http://github-rank.arfianadam.com/
+Live at https://github-rank.arfianadam.com/
 <hr />
 
 It lets you get an organization's contributors ranked by their contributions on the organization's repositories. Simply type in the organization slug and click Go!
