@@ -49,6 +49,7 @@ export default class SearchBox extends Component {
   render() {
     const { isLoading, orgName, requests } = this.props;
     const { longRequest } = this.state;
+    const finishedRequests = requests.filter(req => !req.loading);
     return (
       <div className={styles.SearchBox}>
         <div className={`${styles.container} form-group`}>
@@ -67,7 +68,7 @@ export default class SearchBox extends Component {
           </form>
         </div>
         {isLoading &&
-          <span><i className="fa fa-spinner fa-pulse" aria-hidden="true" />&nbsp;This might take a while.. ({`${requests.length}`}) requests</span> // eslint-disable-line
+          <span><i className="fa fa-spinner fa-pulse" aria-hidden="true" />&nbsp;This might take a while.. ({`${finishedRequests.length} of ${requests.length}`}) requests</span> // eslint-disable-line
         }
         {isLoading && longRequest &&
           <p>You are requesting many nested data. Please wait..</p> // eslint-disable-line
